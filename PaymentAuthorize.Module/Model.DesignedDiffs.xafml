@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="PaymentAuthorize">
+  <BOModel>
+    <Class Name="PaymentGateway.Module.BusinessObjects.TransactionsHistory" DefaultListViewAllowEdit="True">
+      <AppearanceRules>
+        <AppearanceRule Id="VoidTransact_Appearance" TargetItems="*" BackColor="LightCoral" Enabled="False" FontColor="Gray" FontStyle="Strikeout" Criteria="[VoidTransact] = 'void'" Context="Any" AppearanceItemType="ViewItem" Priority="1" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+    <Class Name="PaymentGateway.Module.BusinessObjects.TransactionsManager">
+      <AppearanceRules>
+        <AppearanceRule Id="AmountToPay" TargetItems="AmountToPay" Visibility="Hide" Criteria="[Type] = ##Enum#PaymentGateway.Module.BusinessObjects.PaymentType,Full#" IsNewNode="True" />
+        <AppearanceRule Id="PayIn" TargetItems="CardCode, CardNumber,ExpirationDate" Visibility="Hide" Criteria="[PayIn] = ##Enum#PaymentGateway.Module.BusinessObjects.PayIn,Cash#" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="18.2.4.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="TransactionsHistory_DetailView" AllowEdit="False" AllowNew="False" />
+    <ListView Id="TransactionsHistory_ListView" DataAccessMode="Client" AllowEdit="True" />
+  </Views>
+</Application>
