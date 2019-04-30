@@ -11,6 +11,9 @@
         <AppearanceRule Id="AmountToPay" TargetItems="AmountToPay" Visibility="Hide" Criteria="[Type] = ##Enum#PaymentGateway.Module.BusinessObjects.PaymentType,Full#" IsNewNode="True" />
         <AppearanceRule Id="PayIn" TargetItems="CardCode, CardNumber,ExpirationDate" Visibility="Hide" Criteria="[PayIn] = ##Enum#PaymentGateway.Module.BusinessObjects.PayIn,Cash#" IsNewNode="True" />
       </AppearanceRules>
+      <OwnMembers>
+        <Member Name="AmountToPay" ImmediatePostData="True" />
+      </OwnMembers>
     </Class>
   </BOModel>
   <SchemaModules>

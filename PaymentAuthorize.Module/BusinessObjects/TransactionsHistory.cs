@@ -40,7 +40,7 @@ namespace PaymentGateway.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-        //[ModelDefault("AllowEdit ", "False")]
+       
         [Browsable(false)]
         [Association("PaymentHistory-ListOfPayments")]
         public TransactionsManager Transaction
@@ -99,7 +99,7 @@ namespace PaymentGateway.Module.BusinessObjects
 
         public decimal AmountPayed
         {
-            get => totalDue;
+            get => amountPayed;
             set => SetPropertyValue(nameof(AmountPayed), ref amountPayed, value);
         }
 

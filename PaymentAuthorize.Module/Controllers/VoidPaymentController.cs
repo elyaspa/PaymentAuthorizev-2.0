@@ -69,7 +69,7 @@ namespace PaymentAuthorize.Module.Controllers
                 {
                     if (response.Item2.GetApiResponse().messages != null)
                     {
-                        Application.ShowViewStrategy.ShowMessage("Exito!!!");
+                        Application.ShowViewStrategy.ShowMessage("Your Transaction has been Canceled!!!");
                         transactionsHistory.VoidTransact = "void";
                         //appearanceController = Frame.GetController<AppearanceController>();
                         //if (appearanceController != null)

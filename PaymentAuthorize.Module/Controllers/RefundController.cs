@@ -68,7 +68,7 @@ namespace PaymentAuthorize.Module.Controllers
                     {
                         if (response.Item2.GetApiResponse().messages != null)
                         {
-                            Application.ShowViewStrategy.ShowMessage("Successfull Refound!!!");
+                            Application.ShowViewStrategy.ShowMessage("Successfull Refund!!!");
                             View.ObjectSpace.CommitChanges();
 
                         }

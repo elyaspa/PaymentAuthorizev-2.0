@@ -57,7 +57,7 @@ namespace PaymentAuthorize.Module.Controllers
             MessageOptions messageOptionSuccess = new MessageOptions();
             MessageOptions messageOptionFailed = new MessageOptions();
             messageOptionSuccess.Duration = 2000;
-            messageOptionSuccess.Message = string.Format("The transaction {0} have been success!", ((TransactionsManager)e.CurrentObject).Oid);
+            messageOptionSuccess.Message = string.Format("The transaction {0} has been successfull!", ((TransactionsManager)e.CurrentObject).Oid);
             messageOptionSuccess.Type = InformationType.Success;
             messageOptionSuccess.Web.Position = InformationPosition.Right;
             messageOptionSuccess.Win.Caption = "Success";
@@ -78,7 +78,7 @@ namespace PaymentAuthorize.Module.Controllers
                 CardNumber = Transaction.CardNumber,
                 ExpirationDate = Transaction.ExpirationDate
             };
-
+            
             Tuple<ANetApiResponse, createTransactionController> response = null;
             response = CreateChasePayTransaction.Run(LoginId, TransactionKey, cardInfo, Payed, AuthorizeNet_Payments.Environment.SANDBOX);
             if (response.Item2.GetApiResponse() != null)
@@ -91,16 +91,20 @@ namespace PaymentAuthorize.Module.Controllers
                        
                             TransactionsHistory transactionsHistory = (TransactionsHistory)View.ObjectSpace.CreateObject(typeof(TransactionsHistory));
                             transactionsHistory.PayedDate = Transaction.PayedDate;
-                            transactionsHistory.TotalDue = Transaction.TotalDue-Transaction.AmountToPay;
+                            transactionsHistory.TotalDue = Transaction.TotalDue - Transaction.AmountToPay;
                             transactionsHistory.CardCode = Transaction.CardCode;
                             transactionsHistory.CardNumber = Transaction.CardNumber;
                             transactionsHistory.TransactionId = response.Item2.GetApiResponse().transactionResponse.transId;
                             transactionsHistory.Type = Transaction.Type;
                             transactionsHistory.Transaction = Transaction;
                             transactionsHistory.ExpirationDate = Transaction.ExpirationDate;
-                            Transaction.AmountToPay = Transaction.AmountToPay;
+                            transactionsHistory.AmountPayed = Transaction.AmountToPay;
                             Transaction.TransactionHistory.Add(transactionsHistory);
+                            Transaction.TotalDue = transactionsHistory.TotalDue;
                             View.ObjectSpace.CommitChanges();
+                       
+                       
+                            
                        
                     }
                     else
