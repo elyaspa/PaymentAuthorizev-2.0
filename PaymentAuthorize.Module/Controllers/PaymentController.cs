@@ -78,17 +78,19 @@ namespace PaymentAuthorize.Module.Controllers
                 CardNumber = Transaction.CardNumber,
                 ExpirationDate = Transaction.ExpirationDate
             };
-            
-            Tuple<ANetApiResponse, createTransactionController> response = null;
-            response = CreateChasePayTransaction.Run(LoginId, TransactionKey, cardInfo, Payed, AuthorizeNet_Payments.Environment.SANDBOX);
-            if (response.Item2.GetApiResponse() != null)
+            if (Transaction.TotalDue>=Transaction.AmountToPay)
             {
-                if (response.Item2.GetApiResponse().messages.resultCode == messageTypeEnum.Ok)
+                //Transaction Area
+                Tuple<ANetApiResponse, createTransactionController> response = null;
+                response = CreateChasePayTransaction.Run(LoginId, TransactionKey, cardInfo, Payed, AuthorizeNet_Payments.Environment.SANDBOX);
+                if (response.Item2.GetApiResponse() != null)
                 {
-                    if (response.Item2.GetApiResponse().messages != null)
+                    if (response.Item2.GetApiResponse().messages.resultCode == messageTypeEnum.Ok)
                     {
-                        Application.ShowViewStrategy.ShowMessage(messageOptionSuccess);
-                       
+                        if (response.Item2.GetApiResponse().messages != null)
+                        {
+                            Application.ShowViewStrategy.ShowMessage(messageOptionSuccess);
+
                             TransactionsHistory transactionsHistory = (TransactionsHistory)View.ObjectSpace.CreateObject(typeof(TransactionsHistory));
                             transactionsHistory.PayedDate = Transaction.PayedDate;
                             transactionsHistory.TotalDue = Transaction.TotalDue - Transaction.AmountToPay;
@@ -102,34 +104,39 @@ namespace PaymentAuthorize.Module.Controllers
                             Transaction.TransactionHistory.Add(transactionsHistory);
                             Transaction.TotalDue = transactionsHistory.TotalDue;
                             View.ObjectSpace.CommitChanges();
-                       
-                       
-                            
-                       
+
+
+                        }
+                        else
+                        {
+
+                            Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
+                                + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
+                                + "--" + "Error message: "
+                                + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
+                                InformationType.Error, 4000, InformationPosition.Top);
+                        }
                     }
                     else
                     {
-
                         Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
-                            + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
-                            + "--" + "Error message: "
-                            + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                            InformationType.Error, 4000, InformationPosition.Top);
+                               + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
+                               + "--" + "Error message: "
+                               + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
+                               InformationType.Error, 4000, InformationPosition.Top);
                     }
                 }
                 else
                 {
-                    Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
-                           + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
-                           + "--" + "Error message: "
-                           + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                           InformationType.Error, 4000, InformationPosition.Top);
+                    Application.ShowViewStrategy.ShowMessage(messageOptionFailed);
                 }
+                //Transaction Area ends here
             }
             else
             {
-                Application.ShowViewStrategy.ShowMessage(messageOptionFailed);
+                Application.ShowViewStrategy.ShowMessage("Check the amount to pay",InformationType.Error);
             }
+
         }
 
        

@@ -8,6 +8,7 @@ using DevExpress.Persistent.BaseImpl;
 using System;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
+using DevExpress.Persistent.Validation;
 
 namespace PaymentGateway.Module.BusinessObjects
 {
@@ -52,13 +53,14 @@ namespace PaymentGateway.Module.BusinessObjects
             get => expirationDate;
             set => SetPropertyValue(nameof(ExpirationDate), ref expirationDate, value);
         }
-
+        [RuleRequiredField("Card Code can't be empty",DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string CardCode
         {
             get => cardCode;
             set => SetPropertyValue(nameof(CardCode), ref cardCode, value);
         }
+        [RuleRequiredField("Card Number can't be empty", DefaultContexts.Save)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string CardNumber
         {
@@ -95,14 +97,14 @@ namespace PaymentGateway.Module.BusinessObjects
         }
 
         decimal totalDue;
-
+        [RuleRequiredField("Total Due can't be empty", DefaultContexts.Save)]
         public decimal TotalDue
         {
             get => totalDue;
             set => SetPropertyValue(nameof(TotalDue), ref totalDue, value);
         }
         decimal amountToPay;
-        
+        [RuleRequiredField("Amount to Pay can't be empty", DefaultContexts.Save)]
         public decimal AmountToPay
         {
             get => amountToPay;
