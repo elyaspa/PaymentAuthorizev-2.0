@@ -1,25 +1,19 @@
-﻿using AuthorizeNet.Api.Contracts.V1;
-using AuthorizeNet.Api.Controllers;
-using AuthorizeNet_Payments;
-using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 
-namespace PaymentGateway.Module.BusinessObjects
+namespace PaymentAuthorize.Module.BusinessObjects
 {
-     //[Appearance("VoidAppearanceRule",AppearanceItemType = "ViewItem",TargetItems = "VoidTransaction" ,Criteria = "VoidTransact = 'void'",Context ="ListView",BackColor ="Red",FontStyle = FontStyle.Underline)]
+    //[Appearance("VoidAppearanceRule",AppearanceItemType = "ViewItem",TargetItems = "VoidTransaction" ,Criteria = "VoidTransact = 'void'",Context ="ListView",BackColor ="Red",FontStyle = FontStyle.Underline)]
     public class TransactionsHistory : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
 
 
 
 
+        bool cancelTransaction;
         string voidTransact;
         string transactionId;
         private DateTime expirationDate;
@@ -40,7 +34,7 @@ namespace PaymentGateway.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
-       
+
         [Browsable(false)]
         [Association("PaymentHistory-ListOfPayments")]
         public TransactionsManager Transaction
@@ -49,13 +43,13 @@ namespace PaymentGateway.Module.BusinessObjects
             set => SetPropertyValue(nameof(Transaction), ref transaction, value);
         }
 
-        //[ModelDefault("AllowEdit", "False")]
+       
         public DateTime PayedDate
         {
             get => payedDate;
             set => SetPropertyValue(nameof(PayedDate), ref payedDate, value);
         }
-        //[ModelDefault("AllowEdit", "False")]
+        
         public DateTime ExpirationDate
         {
             get => expirationDate;
@@ -118,12 +112,13 @@ namespace PaymentGateway.Module.BusinessObjects
             get => voidTransact;
             set => SetPropertyValue(nameof(VoidTransact), ref voidTransact, value);
         }
+        [Browsable(false)]
+        public bool CancelTransaction
+        {
+            get => cancelTransaction;
+            set => SetPropertyValue(nameof(CancelTransaction), ref cancelTransaction, value);
+        }
 
 
-        //[Action(Caption = "Make a Refund")]
-        //public void RefundPayment(CreditCardInfo cardData, TransactionId)
-        //{
-
-        //}
     }
 }

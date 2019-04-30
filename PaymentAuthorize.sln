@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentAuthorize.Module.Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentAuthorize.Win", "PaymentAuthorize.Win\PaymentAuthorize.Win.csproj", "{D05D93DF-312D-4D4E-B980-726871EC7833}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizeNetMine", "AuthorizeNetMine\AuthorizeNetMine.csproj", "{E2D809D4-2474-4B67-B430-0EE0BFABC73D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizeNet_Payments", "AuthorizeNet_Payments\AuthorizeNet_Payments.csproj", "{9600C07B-4F6D-408E-BD89-259EAE2EB416}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,12 +52,12 @@ Global
 		{D05D93DF-312D-4D4E-B980-726871EC7833}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{D05D93DF-312D-4D4E-B980-726871EC7833}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D05D93DF-312D-4D4E-B980-726871EC7833}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2D809D4-2474-4B67-B430-0EE0BFABC73D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2D809D4-2474-4B67-B430-0EE0BFABC73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2D809D4-2474-4B67-B430-0EE0BFABC73D}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2D809D4-2474-4B67-B430-0EE0BFABC73D}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
-		{E2D809D4-2474-4B67-B430-0EE0BFABC73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2D809D4-2474-4B67-B430-0EE0BFABC73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9600C07B-4F6D-408E-BD89-259EAE2EB416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9600C07B-4F6D-408E-BD89-259EAE2EB416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9600C07B-4F6D-408E-BD89-259EAE2EB416}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{9600C07B-4F6D-408E-BD89-259EAE2EB416}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{9600C07B-4F6D-408E-BD89-259EAE2EB416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9600C07B-4F6D-408E-BD89-259EAE2EB416}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

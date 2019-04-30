@@ -37,7 +37,7 @@
             this.saVoidPayment.Caption = "Void Payment";
             this.saVoidPayment.ConfirmationMessage = "You are about to Cancel the Transaction!!!";
             this.saVoidPayment.Id = "saVoidPayment";
-            this.saVoidPayment.TargetObjectType = typeof(PaymentGateway.Module.BusinessObjects.TransactionsHistory);
+            this.saVoidPayment.TargetObjectType = typeof(PaymentAuthorize.Module.BusinessObjects.TransactionsHistory);
             this.saVoidPayment.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.saVoidPayment.ToolTip = null;
             this.saVoidPayment.TypeOfView = typeof(DevExpress.ExpressApp.ListView);

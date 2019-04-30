@@ -1,19 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="PaymentAuthorize">
   <BOModel>
-    <Class Name="PaymentGateway.Module.BusinessObjects.TransactionsHistory" DefaultListViewAllowEdit="True">
+    <Class Name="PaymentAuthorize.Module.BusinessObjects.TransactionsHistory">
       <AppearanceRules>
-        <AppearanceRule Id="VoidTransact_Appearance" TargetItems="*" BackColor="LightCoral" Enabled="False" FontColor="Gray" FontStyle="Strikeout" Criteria="[VoidTransact] = 'void'" Context="Any" AppearanceItemType="ViewItem" Priority="1" IsNewNode="True" />
+        <AppearanceRule Id="CancelTransaction" TargetItems="*" Criteria="[CancelTransaction] = True" BackColor="255, 128, 128" IsNewNode="True" />
       </AppearanceRules>
     </Class>
-    <Class Name="PaymentGateway.Module.BusinessObjects.TransactionsManager">
+    <Class Name="PaymentAuthorize.Module.BusinessObjects.TransactionsManager">
       <AppearanceRules>
-        <AppearanceRule Id="AmountToPay" TargetItems="AmountToPay" Visibility="Hide" Criteria="[Type] = ##Enum#PaymentGateway.Module.BusinessObjects.PaymentType,Full#" IsNewNode="True" />
-        <AppearanceRule Id="PayIn" TargetItems="CardCode, CardNumber,ExpirationDate" Visibility="Hide" Criteria="[PayIn] = ##Enum#PaymentGateway.Module.BusinessObjects.PayIn,Cash#" IsNewNode="True" />
+        <AppearanceRule Id="FullPayment" Visibility="Hide" TargetItems="AmountToPay" Criteria="[Type] = ##Enum#PaymentAuthorize.Module.BusinessObjects.PaymentType,Full#" IsNewNode="True" />
+        <AppearanceRule Id="PayIn" TargetItems="ExpirationDate,CardCode,CardNumber," Criteria="[PayIn] = ##Enum#PaymentAuthorize.Module.BusinessObjects.PayIn,Cash#" Visibility="Hide" IsNewNode="True" />
       </AppearanceRules>
-      <OwnMembers>
-        <Member Name="AmountToPay" ImmediatePostData="True" />
-      </OwnMembers>
     </Class>
   </BOModel>
   <SchemaModules>

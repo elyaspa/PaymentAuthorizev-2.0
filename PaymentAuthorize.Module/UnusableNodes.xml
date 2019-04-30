@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel Id="BOModel">
+    <Class Name="PaymentGateway.Module.BusinessObjects.TransactionsHistory" DefaultListViewAllowEdit="True">
+      <AppearanceRules Id="AppearanceRules">
+        <AppearanceRule Id="VoidTransact_Appearance" TargetItems="*" BackColor="LightCoral" Enabled="False" FontColor="Gray" FontStyle="Strikeout" Criteria="[VoidTransact] = 'void'" Context="Any" AppearanceItemType="ViewItem" Priority="1" />
+      </AppearanceRules>
+    </Class>
+    <Class Name="PaymentGateway.Module.BusinessObjects.TransactionsManager">
+      <AppearanceRules Id="AppearanceRules">
+        <AppearanceRule Id="AmountToPay" TargetItems="AmountToPay" Visibility="Hide" Criteria="[Type] = ##Enum#PaymentGateway.Module.BusinessObjects.PaymentType,Full#" />
+        <AppearanceRule Id="PayIn" TargetItems="CardCode, CardNumber,ExpirationDate" Visibility="Hide" Criteria="[PayIn] = ##Enum#PaymentGateway.Module.BusinessObjects.PayIn,Cash#" />
+      </AppearanceRules>
+      <OwnMembers Id="OwnMembers">
+        <Member Name="AmountToPay" ImmediatePostData="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

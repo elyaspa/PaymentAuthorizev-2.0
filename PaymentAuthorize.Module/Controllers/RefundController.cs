@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers;
 using AuthorizeNet_Payments;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
-using PaymentGateway.Module.BusinessObjects;
+using PaymentAuthorize.Module.BusinessObjects;
 
 namespace PaymentAuthorize.Module.Controllers
 {
@@ -51,7 +39,7 @@ namespace PaymentAuthorize.Module.Controllers
                 var LoginId = "3apCxP6Hr5e";
                 var TransactionKey = "76Wu9bWNR64t4Fd4";
                 var TransactionID = transactionsHistory.TransactionId;
-                var TotalDue = transactionsHistory.TotalDue;
+                var RefundAmount = transactionsHistory.Type == PaymentType.Partial ? transactionsHistory.AmountPayed : transactionsHistory.TotalDue;
                 var cardInfo = new AuthorizeNet_Payments.CreditCardInfo()
                 {
                     CardCode = transactionsHistory.CardCode,
@@ -60,7 +48,7 @@ namespace PaymentAuthorize.Module.Controllers
                 };
 
                 Tuple<ANetApiResponse, createTransactionController> response = null;
-                response = RefundTransaction.Run(LoginId, TransactionKey, TotalDue, TransactionID, AuthorizeNet_Payments.Environment.SANDBOX, cardInfo);
+                response = RefundTransaction.Run(LoginId, TransactionKey, RefundAmount, TransactionID, AuthorizeNet_Payments.Environment.SANDBOX, cardInfo);
 
                 if (response.Item2.GetApiResponse() != null)
                 {

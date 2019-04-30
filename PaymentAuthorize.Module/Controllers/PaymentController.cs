@@ -1,23 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers;
-using AuthorizeNet_Payments;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
-using PaymentGateway.Module.BusinessObjects;
-
+using PaymentAuthorize.Module.BusinessObjects;
+using AuthorizeNet_Payments;
 namespace PaymentAuthorize.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
@@ -47,8 +34,8 @@ namespace PaymentAuthorize.Module.Controllers
             // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
-
-
+     
+       
         
 
         private void saDoPayment_Execute(object sender, SimpleActionExecuteEventArgs e)
@@ -71,14 +58,15 @@ namespace PaymentAuthorize.Module.Controllers
             messageOptionFailed.Win.Type = WinMessageType.Toast;
             var LoginId = "3apCxP6Hr5e";
             var TransactionKey = "76Wu9bWNR64t4Fd4";
-            var Payed = Transaction.AmountToPay;
+            //var Payed = Transaction.AmountToPay? Transaction.Type == PaymentType.Partial:Transaction.TotalDue;
+            var Payed = Transaction.Type == PaymentType.Partial ? Transaction.AmountToPay : Transaction.TotalDue;
             var cardInfo = new AuthorizeNet_Payments.CreditCardInfo()
             {
                 CardCode = Transaction.CardCode,
                 CardNumber = Transaction.CardNumber,
                 ExpirationDate = Transaction.ExpirationDate
             };
-            if (Transaction.TotalDue>=Transaction.AmountToPay)
+            if (Transaction.TotalDue>=Transaction.AmountToPay || Transaction.Type == PaymentType.Full)
             {
                 //Transaction Area
                 Tuple<ANetApiResponse, createTransactionController> response = null;
@@ -93,16 +81,18 @@ namespace PaymentAuthorize.Module.Controllers
 
                             TransactionsHistory transactionsHistory = (TransactionsHistory)View.ObjectSpace.CreateObject(typeof(TransactionsHistory));
                             transactionsHistory.PayedDate = Transaction.PayedDate;
-                            transactionsHistory.TotalDue = Transaction.TotalDue - Transaction.AmountToPay;
+                            // transactionsHistory.TotalDue = selectAmount(Transaction);
+                            transactionsHistory.TotalDue= Transaction.Type == PaymentType.Partial? Transaction.TotalDue - Transaction.AmountToPay: 0;
                             transactionsHistory.CardCode = Transaction.CardCode;
                             transactionsHistory.CardNumber = Transaction.CardNumber;
                             transactionsHistory.TransactionId = response.Item2.GetApiResponse().transactionResponse.transId;
                             transactionsHistory.Type = Transaction.Type;
                             transactionsHistory.Transaction = Transaction;
                             transactionsHistory.ExpirationDate = Transaction.ExpirationDate;
-                            transactionsHistory.AmountPayed = Transaction.AmountToPay;
+                           // transactionsHistory.AmountPayed = selectAmount(Transaction);
+                            transactionsHistory.AmountPayed= Transaction.Type == PaymentType.Partial ? Transaction.AmountToPay : Transaction.TotalDue;
                             Transaction.TransactionHistory.Add(transactionsHistory);
-                            Transaction.TotalDue = transactionsHistory.TotalDue;
+                            Transaction.TotalDue = Transaction.Type == PaymentType.Partial ? Transaction.TotalDue - Transaction.AmountToPay : Transaction.TotalDue;
                             View.ObjectSpace.CommitChanges();
 
 

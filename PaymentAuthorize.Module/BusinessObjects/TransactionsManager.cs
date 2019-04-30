@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
 using DevExpress.Persistent.Validation;
 
-namespace PaymentGateway.Module.BusinessObjects
+namespace PaymentAuthorize.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [DefaultProperty("CardNumber")]

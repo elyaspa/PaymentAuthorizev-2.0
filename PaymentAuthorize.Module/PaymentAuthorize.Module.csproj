@@ -48,7 +48,6 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Objects.v18.2, Version=18.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -165,12 +164,16 @@
     <None Include="FunctionalTests\config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Welcome.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AuthorizeNetMine\AuthorizeNetMine.csproj">
-      <Project>{e2d809d4-2474-4b67-b430-0ee0bfabc73d}</Project>
-      <Name>AuthorizeNetMine</Name>
+    <ProjectReference Include="..\AuthorizeNet_Payments\AuthorizeNet_Payments.csproj">
+      <Project>{9600c07b-4f6d-408e-bd89-259eae2eb416}</Project>
+      <Name>AuthorizeNet_Payments</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,25 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers;
-using AuthorizeNet_Payments;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
-using DevExpress.ExpressApp.ConditionalAppearance;
-using PaymentGateway.Module.BusinessObjects;
-using System.Drawing;
-
+using PaymentAuthorize.Module.BusinessObjects;
+using AuthorizeNet_Payments;
 namespace PaymentAuthorize.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
@@ -70,7 +55,8 @@ namespace PaymentAuthorize.Module.Controllers
                     if (response.Item2.GetApiResponse().messages != null)
                     {
                         Application.ShowViewStrategy.ShowMessage("Your Transaction has been Canceled!!!");
-                        transactionsHistory.VoidTransact = "void";
+                        //transactionsHistory.VoidTransact = "void";
+                        transactionsHistory.CancelTransaction=true;
                         //appearanceController = Frame.GetController<AppearanceController>();
                         //if (appearanceController != null)
                         //{

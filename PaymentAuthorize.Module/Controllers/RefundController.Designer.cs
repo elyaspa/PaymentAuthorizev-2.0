@@ -37,7 +37,7 @@
             this.saRefund.Caption = "Refund Transaction";
             this.saRefund.ConfirmationMessage = "You are about to make a Refound!!";
             this.saRefund.Id = "saRefund";
-            this.saRefund.TargetObjectType = typeof(PaymentGateway.Module.BusinessObjects.TransactionsHistory);
+            this.saRefund.TargetObjectType = typeof(PaymentAuthorize.Module.BusinessObjects.TransactionsHistory);
             this.saRefund.TargetViewId = "";
             this.saRefund.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
             this.saRefund.ToolTip = null;
