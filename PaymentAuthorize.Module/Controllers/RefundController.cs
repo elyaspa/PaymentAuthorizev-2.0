@@ -31,15 +31,16 @@ namespace PaymentAuthorize.Module.Controllers
             // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
-
+        //TransactionsManager transactionManager = (TransactionsManager)View.CurrentObject;
         private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            TransactionsManager transactionManager = (TransactionsManager)View.CurrentObject;
             TransactionsHistory transactionsHistory = (TransactionsHistory)View.CurrentObject;
-            
-                var LoginId = "3apCxP6Hr5e";
+           
+            var LoginId = "3apCxP6Hr5e";
                 var TransactionKey = "76Wu9bWNR64t4Fd4";
                 var TransactionID = transactionsHistory.TransactionId;
-                var RefundAmount = transactionsHistory.Type == PaymentType.Partial ? transactionsHistory.AmountPayed : transactionsHistory.TotalDue;
+                var RefundAmount = transactionsHistory.Type == PaymentType.Partial ? transactionsHistory.AmountPayed : transactionManager.TotalDue;
                 var cardInfo = new AuthorizeNet_Payments.CreditCardInfo()
                 {
                     CardCode = transactionsHistory.CardCode,

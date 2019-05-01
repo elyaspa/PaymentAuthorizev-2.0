@@ -58,7 +58,6 @@ namespace PaymentAuthorize.Module.Controllers
             messageOptionFailed.Win.Type = WinMessageType.Toast;
             var LoginId = "3apCxP6Hr5e";
             var TransactionKey = "76Wu9bWNR64t4Fd4";
-            //var Payed = Transaction.AmountToPay? Transaction.Type == PaymentType.Partial:Transaction.TotalDue;
             var Payed = Transaction.Type == PaymentType.Partial ? Transaction.AmountToPay : Transaction.TotalDue;
             var cardInfo = new AuthorizeNet_Payments.CreditCardInfo()
             {
