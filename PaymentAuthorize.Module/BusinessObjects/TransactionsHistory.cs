@@ -14,7 +14,6 @@ namespace PaymentAuthorize.Module.BusinessObjects
 
 
         bool cancelTransaction;
-        string voidTransact;
         string transactionId;
         private DateTime expirationDate;
         string cardCode;
@@ -105,20 +104,25 @@ namespace PaymentAuthorize.Module.BusinessObjects
             set => SetPropertyValue(nameof(TransactionId), ref transactionId, value);
         }
 
-        [Browsable(false)]
-        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
-        public string VoidTransact
-        {
-            get => voidTransact;
-            set => SetPropertyValue(nameof(VoidTransact), ref voidTransact, value);
-        }
+        
         [Browsable(false)]
         public bool CancelTransaction
         {
             get => cancelTransaction;
             set => SetPropertyValue(nameof(CancelTransaction), ref cancelTransaction, value);
         }
-
+        PayIn payIn;        
+        public PayIn PayIn
+        {
+            get
+            {
+                return payIn;
+            }
+            set
+            {
+                SetPropertyValue(nameof(PayIn), ref payIn, value);
+            }
+        }
 
     }
 }
