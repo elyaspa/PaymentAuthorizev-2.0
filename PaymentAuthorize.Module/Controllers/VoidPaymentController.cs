@@ -54,8 +54,7 @@ namespace PaymentAuthorize.Module.Controllers
                 {
                     if (response.Item2.GetApiResponse().messages != null)
                     {
-                        Application.ShowViewStrategy.ShowMessage("Your Transaction has been Canceled!!!");
-                        //transactionsHistory.VoidTransact = "void";
+                        Application.ShowViewStrategy.ShowMessage("Your Transaction has been Canceled!!!");                       
                         transactionsHistory.CancelTransaction=true;
                         //appearanceController = Frame.GetController<AppearanceController>();
                         //if (appearanceController != null)
@@ -69,6 +68,11 @@ namespace PaymentAuthorize.Module.Controllers
                         View.ObjectSpace.CommitChanges();
 
                     }
+                    else if (response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode == "16")
+                    {
+                        Application.ShowViewStrategy.ShowMessage("The transaction can not be found,already canceled", InformationType.Error, 4000, InformationPosition.Top);
+
+                    }
                     else
                     {
 
@@ -79,14 +83,19 @@ namespace PaymentAuthorize.Module.Controllers
                             InformationType.Error, 4000, InformationPosition.Top);
                     }
                 }
-                else
+                else if (response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode == "16")
                 {
-                    Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
-                           + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
-                           + "--" + "Error message: "
-                           + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                           InformationType.Error, 4000, InformationPosition.Top);
+                    Application.ShowViewStrategy.ShowMessage("The transaction can not be found,already canceled", InformationType.Error, 4000, InformationPosition.Top);
+
                 }
+                //else if(response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode=="11")
+                //{
+                //    Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
+                //           + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
+                //           + "--" + "Error message: "
+                //           + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
+                //           InformationType.Error, 4000, InformationPosition.Top);
+                //}
             }
             else
             {

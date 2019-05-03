@@ -13,6 +13,7 @@ namespace PaymentAuthorize.Module.BusinessObjects
 
 
 
+        bool refundTransaction;
         bool cancelTransaction;
         string transactionId;
         private DateTime expirationDate;
@@ -42,13 +43,13 @@ namespace PaymentAuthorize.Module.BusinessObjects
             set => SetPropertyValue(nameof(Transaction), ref transaction, value);
         }
 
-       
+
         public DateTime PayedDate
         {
             get => payedDate;
             set => SetPropertyValue(nameof(PayedDate), ref payedDate, value);
         }
-        
+
         public DateTime ExpirationDate
         {
             get => expirationDate;
@@ -104,12 +105,18 @@ namespace PaymentAuthorize.Module.BusinessObjects
             set => SetPropertyValue(nameof(TransactionId), ref transactionId, value);
         }
 
-        
+
         [Browsable(false)]
         public bool CancelTransaction
         {
             get => cancelTransaction;
             set => SetPropertyValue(nameof(CancelTransaction), ref cancelTransaction, value);
+        }
+        [Browsable(false)]
+        public bool RefundTransaction
+        {
+            get => refundTransaction;
+            set => SetPropertyValue(nameof(RefundTransaction), ref refundTransaction, value);
         }
         PayIn payIn;        
         public PayIn PayIn

@@ -34,13 +34,14 @@ namespace PaymentAuthorize.Module.Controllers
         //TransactionsManager transactionManager = (TransactionsManager)View.CurrentObject;
         private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            TransactionsManager transactionManager = (TransactionsManager)View.CurrentObject;
+            //TransactionsManager transactionManager = (TransactionsManager)View(DetailView).CurrentObject;
             TransactionsHistory transactionsHistory = (TransactionsHistory)View.CurrentObject;
            
             var LoginId = "3apCxP6Hr5e";
                 var TransactionKey = "76Wu9bWNR64t4Fd4";
                 var TransactionID = transactionsHistory.TransactionId;
-                var RefundAmount = transactionsHistory.Type == PaymentType.Partial ? transactionsHistory.AmountPayed : transactionManager.TotalDue;
+           // var RefundFullPayment= transactionManager.TotalDue;
+                var RefundAmount = transactionsHistory.AmountPayed;
                 var cardInfo = new AuthorizeNet_Payments.CreditCardInfo()
                 {
                     CardCode = transactionsHistory.CardCode,
@@ -50,7 +51,7 @@ namespace PaymentAuthorize.Module.Controllers
 
                 Tuple<ANetApiResponse, createTransactionController> response = null;
                 response = RefundTransaction.Run(LoginId, TransactionKey, RefundAmount, TransactionID, AuthorizeNet_Payments.Environment.SANDBOX, cardInfo);
-
+                
                 if (response.Item2.GetApiResponse() != null)
                 {
                     if (response.Item2.GetApiResponse().messages.resultCode == messageTypeEnum.Ok)
@@ -58,6 +59,7 @@ namespace PaymentAuthorize.Module.Controllers
                         if (response.Item2.GetApiResponse().messages != null)
                         {
                             Application.ShowViewStrategy.ShowMessage("Successfull Refund!!!");
+                          transactionsHistory.RefundTransaction=true;
                             View.ObjectSpace.CommitChanges();
 
                         }
@@ -68,16 +70,16 @@ namespace PaymentAuthorize.Module.Controllers
                                 + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
                                 + "--" + "Error message: "
                                 + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                                InformationType.Error, 4000, InformationPosition.Top);
+                                InformationType.Error, 4000, InformationPosition.Bottom);
                         }
                     }
-                    else
+                    else if(response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode=="54")
                     {
-                        Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
-                               + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
-                               + "--" + "Error message: "
-                               + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                               InformationType.Error, 4000, InformationPosition.Top);
+                        Application.ShowViewStrategy.ShowMessage("You can not make a refund until 24 hours later of your payment",InformationType.Error, 4000, InformationPosition.Bottom);
+                    //+ response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
+                    //+ "--" + "Error message 54: "
+                    //+ response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
+
                     }
                 }
                 else

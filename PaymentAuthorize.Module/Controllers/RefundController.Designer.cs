@@ -35,7 +35,7 @@
             // 
             this.saRefund.ActionMeaning = DevExpress.ExpressApp.Actions.ActionMeaning.Accept;
             this.saRefund.Caption = "Refund Transaction";
-            this.saRefund.ConfirmationMessage = "You are about to make a Refound!!";
+            this.saRefund.ConfirmationMessage = "You are about to make a Refund!!";
             this.saRefund.Id = "saRefund";
             this.saRefund.TargetObjectType = typeof(PaymentAuthorize.Module.BusinessObjects.TransactionsHistory);
             this.saRefund.TargetViewId = "";

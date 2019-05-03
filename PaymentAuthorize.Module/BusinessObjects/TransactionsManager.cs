@@ -23,7 +23,7 @@ namespace PaymentAuthorize.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            PayedDate = System.DateTime.UtcNow;
+           // PayedDate = System.DateTime.UtcNow;
             Type = PaymentType.Full;
             PayIn = PayIn.Card;
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).

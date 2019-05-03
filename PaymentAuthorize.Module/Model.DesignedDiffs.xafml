@@ -4,6 +4,7 @@
     <Class Name="PaymentAuthorize.Module.BusinessObjects.TransactionsHistory">
       <AppearanceRules>
         <AppearanceRule Id="CancelTransaction" TargetItems="*" Criteria="[CancelTransaction] = True" BackColor="255, 128, 128" IsNewNode="True" />
+        <AppearanceRule Id="RefundTransaction" TargetItems="*" BackColor="255, 128, 0" FontStyle="Underline" Criteria="[RefundTransaction] = True" IsNewNode="True" />
       </AppearanceRules>
     </Class>
     <Class Name="PaymentAuthorize.Module.BusinessObjects.TransactionsManager">

@@ -103,22 +103,35 @@ namespace PaymentAuthorize.Module.Controllers
                                     + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
                                     + "--" + "Error message: "
                                     + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                                    InformationType.Error, 4000, InformationPosition.Top);
+                                    InformationType.Error, 4000, InformationPosition.Bottom);
                             }
                         }
-                        else
+                        else if(response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode=="11")
                         {
-                            Application.ShowViewStrategy.ShowMessage("Failed Transaction: Error Code: "
-                                   + response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
-                                   + "--" + "Error message: "
-                                   + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
-                                   InformationType.Error, 4000, InformationPosition.Top);
+                            Application.ShowViewStrategy.ShowMessage("You need to wait 2 minutes to pay the same amount", InformationType.Error, 4000, InformationPosition.Top);
+                            //+ response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
+                            //       + "--" + "Error message: "
+                            //       + response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
+                            //       InformationType.Error, 4000, InformationPosition.Top);
                         }
+                        else if (response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode == "6")
+                        {
+                            Application.ShowViewStrategy.ShowMessage("Please Insert a valid Card Number", InformationType.Error, 4000, InformationPosition.Top);
+
+                        }
+                        else if (response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode == "8")
+                        {
+                            Application.ShowViewStrategy.ShowMessage("Your Credit card has Expired", InformationType.Error, 4000, InformationPosition.Top);
+
+                        }
+
                     }
-                    else
+                    else 
                     {
-                        Application.ShowViewStrategy.ShowMessage(messageOptionFailed);
+                        Application.ShowViewStrategy.ShowMessage("Please Insert a valid Card Code", InformationType.Error, 4000, InformationPosition.Top);
+
                     }
+                    
                     //Transaction Area ends here
                 }//TODO Fix messages
                 else
