@@ -36,6 +36,7 @@
             this.saDoPayment.Caption = "Do Payment";
             this.saDoPayment.ConfirmationMessage = null;
             this.saDoPayment.Id = "saDoPayment";
+            this.saDoPayment.ImageName = "Payment";
             this.saDoPayment.TargetObjectType = typeof(PaymentAuthorize.Module.BusinessObjects.TransactionsManager);
             this.saDoPayment.TargetViewType = DevExpress.ExpressApp.ViewType.DetailView;
             this.saDoPayment.ToolTip = null;

@@ -40,6 +40,7 @@ namespace PaymentAuthorize.Module.Controllers
 
         private void saDoPayment_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+
             TransactionsManager Transaction = (TransactionsManager)View.CurrentObject;
             MessageOptions messageOptionSuccess = new MessageOptions();
             MessageOptions messageOptionFailed = new MessageOptions();

@@ -41,7 +41,7 @@ namespace PaymentAuthorize.Module.BusinessObjects
             }
         }
 
-        [ModelDefault("AllowEdit", "False")]
+       // [ModelDefault("AllowEdit", "False")]
         public DateTime PayedDate
         {
             get => payedDate;

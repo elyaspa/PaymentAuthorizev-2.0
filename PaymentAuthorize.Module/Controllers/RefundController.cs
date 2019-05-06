@@ -34,7 +34,7 @@ namespace PaymentAuthorize.Module.Controllers
         //TransactionsManager transactionManager = (TransactionsManager)View.CurrentObject;
         private void simpleAction1_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            //TransactionsManager transactionManager = (TransactionsManager)View(DetailView).CurrentObject;
+           
             TransactionsHistory transactionsHistory = (TransactionsHistory)View.CurrentObject;
            
             var LoginId = "3apCxP6Hr5e";
@@ -59,7 +59,8 @@ namespace PaymentAuthorize.Module.Controllers
                         if (response.Item2.GetApiResponse().messages != null)
                         {
                             Application.ShowViewStrategy.ShowMessage("Successfull Refund!!!");
-                          transactionsHistory.RefundTransaction=true;
+                            transactionsHistory.RefundTransaction=true;
+                         
                             View.ObjectSpace.CommitChanges();
 
                         }
@@ -75,7 +76,7 @@ namespace PaymentAuthorize.Module.Controllers
                     }
                     else if(response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode=="54")
                     {
-                        Application.ShowViewStrategy.ShowMessage("You can not make a refund until 24 hours later of your payment",InformationType.Error, 4000, InformationPosition.Bottom);
+                        Application.ShowViewStrategy.ShowMessage("You can not make a refund until 24 hours later of your payment",InformationType.Error, 4000, InformationPosition.Top);
                     //+ response.Item2.GetApiResponse().transactionResponse.errors[0].errorCode
                     //+ "--" + "Error message 54: "
                     //+ response.Item2.GetApiResponse().transactionResponse.errors[0].errorText,
@@ -84,7 +85,7 @@ namespace PaymentAuthorize.Module.Controllers
                 }
                 else
                 {
-                    Application.ShowViewStrategy.ShowMessage("Error!!!");
+                    Application.ShowViewStrategy.ShowMessage("Error Check your Information Data!!!");
                 }
            
         }

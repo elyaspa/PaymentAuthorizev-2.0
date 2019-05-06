@@ -37,6 +37,7 @@
             this.saRefund.Caption = "Refund Transaction";
             this.saRefund.ConfirmationMessage = "You are about to make a Refund!!";
             this.saRefund.Id = "saRefund";
+            this.saRefund.ImageName = "Refund";
             this.saRefund.TargetObjectType = typeof(PaymentAuthorize.Module.BusinessObjects.TransactionsHistory);
             this.saRefund.TargetViewId = "";
             this.saRefund.TargetViewType = DevExpress.ExpressApp.ViewType.ListView;
